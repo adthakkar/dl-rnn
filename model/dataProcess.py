@@ -14,6 +14,8 @@ def parse_csv_dataset(fname):
     reviews = []
     review_dict = {} 
 
+    print("parse_csv_dataset(): Parsing data from %s" % (fname))
+
     data = pd.read_csv(fname, usecols=['Score', 'Text'])
     for rev in data.itertuples():
         review_dict['rating'] = float(rev[1])
@@ -28,6 +30,8 @@ def parse_jhu_dataset(fname, label):
 
     with open(fname, 'r') as f:
         reviews = f.read().split('</review>')
+
+        print("parse_jhu_dataset(): Parsing data from %s" % (fname))
 
         for review in (reviews):
             review_dict = {} 
@@ -54,6 +58,8 @@ def load_jhu_dataset():
         
         for fname in filenames:
             name = fname.split('%')
+            print("load_jhu_dataset(): Loading and parsing data from following file %s" % (name))
+
             rev = parse_jhu_dataset(name[0], name[1])
             reviews = reviews + rev
     
@@ -67,6 +73,7 @@ def load_csv_dataset():
         filenames = f.read().splitlines()
 
         for fname in filenames:
+            print("load_csv_dataset(): Loading and parsing data from following file %s" % (fname))
             rev = parse_csv_dataset(fname)
             reviews = reviews + rev
 
@@ -92,6 +99,7 @@ def load_train_data():
         train_text.append(rev_punct_removed)
         train_label.append(review['rating'])
 
+    print(len(train_label))
     return 
 
 def main():
