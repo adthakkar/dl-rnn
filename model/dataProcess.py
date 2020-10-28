@@ -5,9 +5,23 @@ import os
 import numpy as np
 import re
 import random
+import pandas as pd
 
 from pprint import pprint
 from string import punctuation
+
+def parse_csv_dataset(fname):
+    reviews = []
+    review_dict = {} 
+
+    data = pd.read_csv(fname, usecols=['Score', 'Text'])
+    for rev in data.itertuples():
+        review_dict['rating'] = float(rev[1])
+        review_dict['review_text'] = rev[2]
+        reviews.append(review_dict)
+
+    return reviews
+
 
 def parse_jhu_dataset(fname, label):
     review_list = []
@@ -37,7 +51,7 @@ def load_jhu_dataset():
 
     with open('/home/ec2-user/dl-rnn/dataset/jhu_dataset', 'r') as f:
         filenames = f.read().splitlines()
-
+        
         for fname in filenames:
             name = fname.split('%')
             rev = parse_jhu_dataset(name[0], name[1])
@@ -46,25 +60,42 @@ def load_jhu_dataset():
     random.shuffle(reviews)
     return reviews
 
+def load_csv_dataset():
+    reviews = []
+
+    with open('/home/ec2-user/dl-rnn/dataset/food_reviews', 'r') as f:
+        filenames = f.read().splitlines()
+
+        for fname in filenames:
+            rev = parse_csv_dataset(fname)
+            reviews = reviews + rev
+
+    random.shuffle(reviews)
+    
+
+    return reviews
+
 def load_train_data():
     review_list = []
     train_text = []
     train_label = []
-     
-    review_list = load_jhu_dataset() 
+    
+    rev1 = load_jhu_dataset()
+    rev2 = load_csv_dataset() 
+    
+    review_list = rev1 + rev2 
     
     for review in review_list:
         rev_text = review['review_text'].lower()
         rev_punct_removed = ''.join([c for c in rev_text if c not in punctuation])
          
         train_text.append(rev_punct_removed)
-        train_label.append(review['label'])
-
-    print(train_text)   
+        train_label.append(review['rating'])
 
     return 
 
 def main():
+    #load_csv_dataset() 
     load_train_data()
 
 if __name__ == '__main__':
