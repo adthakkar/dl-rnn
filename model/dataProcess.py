@@ -128,12 +128,12 @@ def load_train_data():
 
     rev_len = [len(w) for w in reviews_encoded]
 
-    print(rev_len)
-
     pd.Series(rev_len).hist()
     plt.show()
-    pd.Series(rev_len).describe()
     plt.savefig("xyz.png")
+    
+    s = pd.Series(rev_len).describe()
+    print(s)
 
     return 
 
