@@ -6,9 +6,12 @@ import numpy as np
 import re
 import random
 import pandas as pd
-
+import matplotlib.pyplot as plt
+ 
 from pprint import pprint
 from string import punctuation
+from collections import Counter
+
 
 def parse_csv_dataset(fname):
     reviews = []
@@ -82,6 +85,27 @@ def load_csv_dataset():
 
     return reviews
 
+def tokenize_text(text_list):
+    text_join = ' '.join(text_list)
+    words = text_join.split()
+    count = Counter(words)
+    
+    total = len(words)
+    common_words = count.most_common(total) 
+
+    words_to_int = {w:i+1 for i, (w,c) in enumerate(common_words)}
+
+    return words_to_int
+
+def encode_reviews(text_list, encoding):
+    encoded_reviews = []
+
+    for rev in text_list:
+        temp = [encoding[w] for w in rev.split()] 
+        encoded_reviews.append(temp)
+
+    return encoded_reviews
+
 def load_train_data():
     review_list = []
     train_text = []
@@ -93,13 +117,24 @@ def load_train_data():
     review_list = rev1 + rev2 
     
     for review in review_list:
-        rev_text = review['review_text'].lower()
+        rev_text = review['review_text'].lower().strip()
         rev_punct_removed = ''.join([c for c in rev_text if c not in punctuation])
          
         train_text.append(rev_punct_removed)
         train_label.append(review['rating'])
+ 
+    encodings = tokenize_text(train_text)
+    reviews_encoded = encode_reviews(train_text, encodings)
 
-    print(len(train_label))
+    rev_len = [len(w) for w in reviews_encoded]
+
+    print(rev_len)
+
+    pd.Series(rev_len).hist()
+    plt.show()
+    pd.Series(rev_len).describe()
+    plt.savefig("xyz.png")
+
     return 
 
 def main():
