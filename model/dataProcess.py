@@ -106,6 +106,23 @@ def encode_reviews(text_list, encoding):
 
     return encoded_reviews
 
+def plot_data(rev_len, plot_name = 'xyz'):
+    pd.Series(rev_len).hist()
+    plt.show()
+    plt.savefig(plot_name)
+    
+    s = pd.Series(rev_len).describe([0.25, 0.5, 0.75, 0.99])
+    print(s)
+
+def plot_review_data(rev_list, data_type):
+    rev_text = []
+    for rev in rev_list:
+        rev_text.append(rev['review_text'].strip())
+
+    rev_len = [len(w) for w in rev_text]
+    plot_data(rev_len, data_type)
+
+
 def load_train_data():
     review_list = []
     train_text = []
@@ -113,7 +130,10 @@ def load_train_data():
     
     rev1 = load_jhu_dataset()
     rev2 = load_csv_dataset() 
-    
+   
+    plot_review_data(rev1, 'jhu_data.png')
+    plot_review_data(rev2, 'food_review_data.png')
+     
     review_list = rev1 + rev2 
     
     for review in review_list:
@@ -127,13 +147,7 @@ def load_train_data():
     reviews_encoded = encode_reviews(train_text, encodings)
 
     rev_len = [len(w) for w in reviews_encoded]
-
-    pd.Series(rev_len).hist()
-    plt.show()
-    plt.savefig("xyz.png")
-    
-    s = pd.Series(rev_len).describe()
-    print(s)
+    plot_data(rev_len, 'tokenized_review_len.png')
 
     return 
 
