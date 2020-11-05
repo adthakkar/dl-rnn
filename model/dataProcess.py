@@ -97,12 +97,12 @@ def tokenize_text(text_list):
 
     return words_to_int
 
-def encode_reviews(text_list, encoding):
+def encode_reviews(text_list, vocab):
     encoded_reviews = []
 
     for rev in text_list:
-        temp = [encoding[w] for w in rev.split()] 
-        encoded_reviews.append(temp)
+        tmp = [vocab[w] for w in rev.split()] 
+        encoded_reviews.append(tmp)
 
     return encoded_reviews
 
@@ -119,7 +119,7 @@ def plot_review_data(rev_list, data_type):
     for rev in rev_list:
         rev_text.append(rev['review_text'].strip())
 
-    rev_len = [len(w) for w in rev_text]
+    rev_len = [len(w.split()) for w in rev_text]
     plot_data(rev_len, data_type)
 
 
@@ -143,8 +143,8 @@ def load_train_data():
         train_text.append(rev_punct_removed)
         train_label.append(review['rating'])
  
-    encodings = tokenize_text(train_text)
-    reviews_encoded = encode_reviews(train_text, encodings)
+    vocabulary = tokenize_text(train_text)
+    reviews_encoded = encode_reviews(train_text, vocabulary)
 
     rev_len = [len(w) for w in reviews_encoded]
     plot_data(rev_len, 'tokenized_review_len.png')
