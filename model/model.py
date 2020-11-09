@@ -127,11 +127,11 @@ def main():
     tmp_data = data_reviews[int(rev_len * data_split_ratio):]
     tmp_label = data_label[int(label_len * data_split_ratio):]
 
-    validate_data = tmp_data[0:int(rev_len * (data_split_ratio/2))]
-    validate_label = tmp_label[0:int(rev_len * (data_split_ratio/2))]
+    validate_data = tmp_data[0:int(len(tmp_data) * 0.5)]
+    validate_label = tmp_label[0:int(len(tmp_label) * 0.5)]
 
-    dev_test_data = tmp_data[int(rev_len * (data_split_ratio/2)):]
-    dev_test_label = tmp_data[int(label_len * (data_split_ratio/2)):]
+    dev_test_data = tmp_data[int(len(tmp_data) * 0.5):]
+    dev_test_label = tmp_data[int(len(tmp_label) * 0.5):]
 
     print("Encoded Reviews length = %d; Label Data length = %d, Vocabulary length = %d"% (rev_len, label_len, vocab_len))
     print("Train Data length = %d; Train Label length = %d"%(len(train_data), len(train_label)))
