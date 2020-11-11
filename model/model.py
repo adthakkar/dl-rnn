@@ -63,14 +63,14 @@ class ReviewSentiment(nn.Module):
 
 def categorical_accuracy(preds, y):
     #max_preds = preds.argmax(dim = 1, keepdim = True)
-    #correct = max_preds.squeeze(1).eq(y)
+    #correct = max_preds.squeeze(1).eq(y)    
 
     _, max_preds = torch.max(preds.data, 1)
 
     if torch.cuda.is_available():
-        correct += (max_preds.cpu() == y.cpu()).sum()
+        correct = (max_preds.cpu() == y.cpu()).sum()
     else:
-        correct += (max_preds == y).sum()
+        correct = (max_preds == y).sum()
 
     return correct
     #return correct.sum() / torch.FloatTensor([y.shape[0]])
