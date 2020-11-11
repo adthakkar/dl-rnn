@@ -122,12 +122,12 @@ def train(model, device, data_loader, validate_loader, optimizer, criterion, bat
                 val_loss = criterion(preds, lab)                
 
                 total += lab.size(0)
-                val_acc += categorical_accuracy(preds, lab)
+                validate_acc += categorical_accuracy(preds, lab)
                 validate_loss.append(val_loss.item())
 
             model.train()
 
-            accuracy = 100*val_acc/total
+            accuracy = 100*validate_acc/total
             print('Iteration: {}. Loss: {}. Validate Set mean Loss {}. Validate Set Accuracy: {}'.format(counter, loss.item(), np.mean(validate_loss), accuracy))
 
 
