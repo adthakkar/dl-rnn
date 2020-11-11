@@ -180,6 +180,8 @@ def main():
     print("train_iter - batch size for text data is " + str(x.size()))
     print("train_iter - batch size for label data is " + str(y.size()))
 
+    if torch.cuda.is_available():
+        print("CUDA is AVAILABLE!!")
 
     model = ReviewSentiment(vocab_len, embedding_dim, hidden_dim, output_dim, n_layers, dropout=0.5)
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -192,7 +194,7 @@ def main():
     criterion.to(device)
     
     for ep in range(epoch):
-        train(model, device, train_loader, validate_loader, optimizer, criterion, batch_size, validate_counter=10)
+        train(model, device, train_loader, validate_loader, optimizer, criterion, batch_size, validate_counter=100)
 
 if __name__ == '__main__':
     main()
