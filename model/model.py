@@ -10,46 +10,72 @@ from torch.utils.data import DataLoader, TensorDataset
 class ReviewSentiment(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_dim, output_dim, n_layers, dropout):
         super().__init__()
-        self.embedding = nn.Embedding(vocab_size, embedding_dim)
-        self.lstm = nn.LSTM(embedding_dim, hidden_dim, num_layers=n_layers, dropout=dropout)
-        self.fc = nn.Linear(hidden_dim, output_dim)
-        self.dropout = nn.Dropout(dropout)
-        self.softMax = nn.LogSoftmax(dim=1)
         self.n_layers = n_layers
         self.hidden_dim = hidden_dim
-
-    def forward(self, text, hidden):
-        batch_size = text.size(0)
-        embeds = self.embedding(text)
-        lstm_out, hidden = self.lstm(embeds, hidden) 
-        #lstm_out = lstm_out.contiguous().view(-1, self.hidden_dim)
-
-        #out = self.dropout(lstm_out)
-        out = self.fc(lstm_out)
+        self.embedding = nn.Embedding(vocab_size, embedding_dim)
         
-        #out = out[:, -1, :]
+        self.lstm = nn.LSTM(embedding_dim, hidden_dim, num_layers=n_layers, batch_first=True, dropout=dropout, bidirectional=True)
+        self.fc = nn.Linear(hidden_dim*2, output_dim)
+        
+        self.dropout = nn.Dropout(dropout)
+        self.softMax = nn.Softmax(dim=1)
+
+    def forward(self, text):
+        device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        batch_size = text.size(0)
+                
+        #print("batch shape {}.".format(batch_size))
+
+        h0 = torch.zeros(self.n_layers*2, batch_size, self.hidden_dim).requires_grad_().to(device)
+        c0 = torch.zeros(self.n_layers*2, batch_size, self.hidden_dim).requires_grad_().to(device)
+
+        #print("h0 shape {}.".format(h0.shape), "c0 shape {}.".format(c0.shape))
+
+        embeds = self.embedding(text)
+        #print("embeds shape {}.".format(embeds.shape))
+
+
+        lstm_out, (h, c) = self.lstm(embeds, (h0.detach(), c0.detach()))
+        #print("lstm_out shape {}.".format(lstm_out.shape), "h shape {}.".format(h.shape), "c shape {}.".format(c.shape))
+ 
+
+        #lstm_out = lstm_out.contiguous().view(-1, self.hidden_dim)
+        #hidden = self.dropout(torch.cat((h[-2,:,:], h[-1,:,:]), dim = 1))
+        #print("hidden shape {}.".format(hidden.shape))
+        out = self.dropout((torch.cat((h[-2,:,:], h[-1,:,:]), dim = 1)))
+        #print("dropout shape {}.".format(out.shape))
+        out = self.fc(out)
+        #print("fc out shape {}.".format(out.shape))
+        #out = out.view(batch_size, -1)
+        #print("fc out shape {}.".format(out.shape))
+        
         #out = self.fc(out.view(-1, out.size(2)))
-        softmax_out = self.softMax(out)
-        softmax_out = softmax_out.view(batch_size, -1)
+        #softmax_out = self.softMax(out)
+        #print("softmax_out shape {}.".format(softmax_out.shape))
+        
+        
+        #softmax_out = softmax_out.view(batch_size, -1)
         #softmax_out = softmax_out[:, -1]
+        #print("softmax_out shape {}.".format(softmax_out.shape))
 
-        return softmax_out, hidden
+        return out
 
-
-    def init_hidden(self, batch_size):
-        weight = next(self.parameters()).data
-
-        hidden = (weight.new(self.n_layers, batch_size, self.hidden_dim).zero_(), weight.new(self.n_layers, batch_size, self.hidden_dim).zero_())
-
-        return hidden
 
 def categorical_accuracy(preds, y):
-    max_preds = preds.argmax(dim = 1, keepdim = True)
-    correct = max_preds.squeeze(1).eq(y)
+    #max_preds = preds.argmax(dim = 1, keepdim = True)
+    #correct = max_preds.squeeze(1).eq(y)
 
-    return correct.sum() / torch.FloatTensor([y.shape[0]])
+    _, max_preds = torch.max(preds.data, 1)
 
-def train(model, data_loader, validate_loader, optimizer, criterion, batch_size, validate_counter = 100):
+    if torch.cuda.is_available():
+        correct += (max_preds.cpu() == y.cpu()).sum()
+    else:
+        correct += (max_preds == y).sum()
+
+    return correct
+    #return correct.sum() / torch.FloatTensor([y.shape[0]])
+
+def train(model, device, data_loader, validate_loader, optimizer, criterion, batch_size, validate_counter = 100):
     epoch_loss = 0
     epoch_acc = 0
     clip = 5
@@ -57,62 +83,63 @@ def train(model, data_loader, validate_loader, optimizer, criterion, batch_size,
     
     model.train()
 
-    hidden = model.init_hidden(batch_size)
-
     for reviews, labels in data_loader:
-        counter += 1
-        optimizer.zero_grad()
-        hidden = tuple([each.data for each in hidden])    
+        counter += 1    
 
+        reviews = reviews.to(device)
+        labels = labels.to(device)
+
+        optimizer.zero_grad()
         reviews = reviews.type(torch.LongTensor)
-        predictions, hidden = model(reviews, hidden)
-        loss = criterion(predictions.squeeze(), labels.long())
+        labels = labels.type(torch.LongTensor)
+
+        predictions = model(reviews)
+
+        loss = criterion(predictions, labels)
         loss.backward()
+        
         nn.utils.clip_grad_norm_(model.parameters(), clip)
 
         optimizer.step()
 
-        acc = categorical_accuracy(predictions, labels)
-        epoch_loss += loss.item()
-        epoch_acc += acc.item()
 
-        #print("Loss = " + str(loss.item()))
-        #print("Accuracy = " + str(acc.item()))
-        #print(epoch_loss)
-        #print(epoch_acc)
 
         if counter % validate_counter == 0:
-            validate_hidden = model.init_hidden(batch_size)        
             validate_loss = []
-            validate_acc = []
+            validate_acc = 0
+            total = 0
+
             model.eval()
 
             for rev, lab in validate_loader:
-                validate_hidden = tuple([each.data for each in validate_hidden])
-                
+                rev = rev.to(device)
+                lab = lab.to(device)
+             
                 rev = rev.type(torch.LongTensor)
-                preds, hid = model(rev, validate_hidden)
-                val_loss = criterion(preds.squeeze(), lab.long())                
-                val_acc = categorical_accuracy(preds, lab)
+                lab = lab.type(torch.LongTensor)
 
+                preds = model(rev)
+                val_loss = criterion(preds, lab)                
+
+                total += lab.size(0)
+                val_acc += categorical_accuracy(preds, lab)
                 validate_loss.append(val_loss.item())
-                validate_acc.append(val_acc.item())
 
             model.train()
 
-            print("Step: {}...".format(counter), "Step Loss: {:.6f}...".format(epoch_loss/counter), "Step Acc: {:.6f}...".format(epoch_acc/counter), 
-                    "Validate mean Loss: {:.6f}".format(np.mean(validate_loss)), "Validate mean Acc: {:.6f}".format(np.mean(validate_acc)))
+            accuracy = 100*val_acc/total
+            print('Iteration: {}. Loss: {}. Validate Set mean Loss {}. Validate Set Accuracy: {}'.format(counter, loss.item(), np.mean(validate_loss), accuracy))
 
 
 def main():
-    data_split_ratio = 0.9
+    data_split_ratio = 0.5
     batch_size = 256
 
     output_dim = 5
     embedding_dim = 300
     hidden_dim = 256
     n_layers = 2
-    learning_rate = 0.001
+    learning_rate = 0.09
     epoch = 1
 
     vocabulary, data_reviews, data_label = load_data(pad=True, plot=False) 
@@ -143,26 +170,29 @@ def main():
     validate_tensor = TensorDataset(torch.from_numpy(validate_data), torch.from_numpy(validate_label))
     dev_test_tensor = TensorDataset(torch.from_numpy(dev_test_data), torch.from_numpy(dev_test_label))
 
-    train_loader = DataLoader(train_tensor, shuffle=False, batch_size=batch_size)
-    validate_loader = DataLoader(validate_tensor, shuffle=False, batch_size=batch_size)
-    dev_test_loader = DataLoader(dev_test_tensor, shuffle=False, batch_size=batch_size)
+    train_loader = DataLoader(train_tensor, shuffle=True, batch_size=batch_size)
+    validate_loader = DataLoader(validate_tensor, shuffle=True, batch_size=batch_size)
+    dev_test_loader = DataLoader(dev_test_tensor, shuffle=True, batch_size=batch_size)
 
     train_iter = iter(train_loader)
     x, y = train_iter.next()
 
-    #print(x.size())
-    #print(y.size())
+    print("train_iter - batch size for text data is " + str(x.size()))
+    print("train_iter - batch size for label data is " + str(y.size()))
 
 
-    model = ReviewSentiment(vocab_len, embedding_dim, hidden_dim, output_dim, n_layers, dropout=0)
+    model = ReviewSentiment(vocab_len, embedding_dim, hidden_dim, output_dim, n_layers, dropout=0.5)
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    model.to(device)
 
     print("Number of parameters in the model = %d." %(sum(p.numel() for p in model.parameters() if p.requires_grad)))
 
     optimizer = optim.Adam(model.parameters(), learning_rate)
     criterion = nn.CrossEntropyLoss()
+    criterion.to(device)
     
     for ep in range(epoch):
-        train(model, train_loader, validate_loader, optimizer, criterion, batch_size, validate_counter=100)
+        train(model, device, train_loader, validate_loader, optimizer, criterion, batch_size, validate_counter=10)
 
 if __name__ == '__main__':
     main()

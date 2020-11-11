@@ -172,7 +172,7 @@ def load_data(pad=True, plot=False):
         rev_punct_removed = ''.join([c for c in rev_text if c not in punctuation])
          
         data_text.append(rev_punct_removed)
-        data_label.append(float(review['rating']))
+        data_label.append(float(review['rating'])-1)
  
     vocabulary = tokenize_text(data_text)
     reviews_encoded = encode_reviews(data_text, vocabulary)
