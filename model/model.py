@@ -87,8 +87,6 @@ def train(model, device, data_loader, validate_loader, optimizer, criterion, bat
     for reviews, labels in data_loader:
         counter += 1  
 
-        print(counter)  
-
         reviews = reviews.to(device)
         labels = labels.to(device)
 
@@ -146,14 +144,15 @@ def train(model, device, data_loader, validate_loader, optimizer, criterion, bat
 
 def main():
     data_split_ratio = 0.92
-    batch_size = 256
+    batch_size = 512
 
     output_dim = 5
     embedding_dim = 300
     hidden_dim = 256
     n_layers = 2
-    learning_rate = 0.05
+    learning_rate = 0.01
     epoch = 1
+    dropout = 0.5
 
     vocabulary, data_reviews, data_label = load_data(pad=True, plot=False) 
 
@@ -196,7 +195,7 @@ def main():
     if torch.cuda.is_available():
         print("CUDA is AVAILABLE!!")
 
-    model = ReviewSentiment(vocab_len, embedding_dim, hidden_dim, output_dim, n_layers, dropout=0.5)
+    model = ReviewSentiment(vocab_len, embedding_dim, hidden_dim, output_dim, n_layers, dropout)
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
@@ -207,7 +206,8 @@ def main():
     criterion.to(device)
     
     for ep in range(epoch):
-        train(model, device, train_loader, validate_loader, optimizer, criterion, batch_size, validate_counter=10)
+        print("Epoch {}.".format(ep))
+        train(model, device, train_loader, validate_loader, optimizer, criterion, batch_size, validate_counter=25)
 
 if __name__ == '__main__':
     main()
