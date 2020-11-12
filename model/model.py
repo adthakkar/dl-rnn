@@ -80,11 +80,14 @@ def train(model, device, data_loader, validate_loader, optimizer, criterion, bat
     epoch_acc = 0
     clip = 5
     counter = 0
-    
+    total = 0    
+
     model.train()
 
     for reviews, labels in data_loader:
-        counter += 1    
+        counter += 1  
+
+        print(counter)  
 
         reviews = reviews.to(device)
         labels = labels.to(device)
@@ -101,9 +104,19 @@ def train(model, device, data_loader, validate_loader, optimizer, criterion, bat
         nn.utils.clip_grad_norm_(model.parameters(), clip)
 
         optimizer.step()
+        
+        total += labels.size(0)
+        epoch_acc += categorical_accuracy(predictions, labels)
+                
+        if counter % validate_counter == 0:
+            #validate_loss.append(val_loss.item())
+            accuracy = 100*epoch_acc/total
+            print('Iteration: {}. Loss: {}. Accuracy: {}'.format(counter, loss.item(), accuracy))
 
+    accuracy = 100*epoch_acc/total
+    print('Iteration: {}. Loss: {}. Accuracy: {}'.format(counter, loss.item(), accuracy))
 
-
+'''
         if counter % validate_counter == 0:
             validate_loss = []
             validate_acc = 0
@@ -129,17 +142,17 @@ def train(model, device, data_loader, validate_loader, optimizer, criterion, bat
 
             accuracy = 100*validate_acc/total
             print('Iteration: {}. Loss: {}. Validate Set mean Loss {}. Validate Set Accuracy: {}'.format(counter, loss.item(), np.mean(validate_loss), accuracy))
-
+'''
 
 def main():
-    data_split_ratio = 0.5
+    data_split_ratio = 0.92
     batch_size = 256
 
     output_dim = 5
     embedding_dim = 300
     hidden_dim = 256
     n_layers = 2
-    learning_rate = 0.09
+    learning_rate = 0.05
     epoch = 1
 
     vocabulary, data_reviews, data_label = load_data(pad=True, plot=False) 
@@ -194,7 +207,7 @@ def main():
     criterion.to(device)
     
     for ep in range(epoch):
-        train(model, device, train_loader, validate_loader, optimizer, criterion, batch_size, validate_counter=100)
+        train(model, device, train_loader, validate_loader, optimizer, criterion, batch_size, validate_counter=10)
 
 if __name__ == '__main__':
     main()
