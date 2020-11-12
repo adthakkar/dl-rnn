@@ -87,13 +87,14 @@ def train(model, device, data_loader, validate_loader, optimizer, criterion, bat
     for reviews, labels in data_loader:
         counter += 1  
 
-        reviews = reviews.to(device)
-        labels = labels.to(device)
-
         optimizer.zero_grad()
+        
         reviews = reviews.type(torch.LongTensor)
         labels = labels.type(torch.LongTensor)
 
+        reviews = reviews.to(device)
+        labels = labels.to(device)
+        
         predictions = model(reviews)
 
         loss = criterion(predictions, labels)
