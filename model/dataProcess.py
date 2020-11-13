@@ -144,7 +144,7 @@ def pad_truncate(encoded_reviews, max_length):
     
 
 
-def load_data(pad=True, plot=False):
+def load_data(max_len=256, pad=True, plot=False):
     review_list = []
     data_text = []
     data_label = []
@@ -184,8 +184,8 @@ def load_data(pad=True, plot=False):
         plot_data(rev_len, 'tokenized_review_len.png')
 
     if pad:
-        print("Padding and Truncating encoded reviews")
-        reviews_encoded = pad_truncate(reviews_encoded, 256)
+        print("Padding and Truncating encoded reviews, max_len=%d"%max_len)
+        reviews_encoded = pad_truncate(reviews_encoded, max_len)
 
     data_reviews = np.array(reviews_encoded)
     labels = np.array(data_label)
