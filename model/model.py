@@ -92,7 +92,7 @@ def test(model, device, test_loader, criterion):
         test_loss.append(loss.item())
 
     dataset_len = len(test_loader.dataset)
-    accuracy = test_acc/len(test_loader.dataset)
+    accuracy = (test_acc*1.0)/len(test_loader.dataset)
     print('Test Set mean Loss {}. Test Acc: {}, Test Dataset Len: {}, Test Set Accuracy: {}'.format(np.mean(test_loss), test_acc,dataset_len, accuracy))
 
 
@@ -150,7 +150,7 @@ def train(model, device, data_loader, validate_loader, optimizer, criterion, val
             model.train()
 
             train_dataset_len = len(validate_loader.dataset)
-            accuracy = validate_acc/len(validate_loader.dataset)
+            accuracy = (validate_acc*1.0)/len(validate_loader.dataset)
             print('Iteration: {}. Loss: {}. Validate Set mean Loss {}. validate acc: {} , validate dataset len: {}, Validate Set Accuracy: {}'.format(counter, loss.item(), np.mean(validate_loss), validate_acc, train_dataset_len, accuracy))
 
 
