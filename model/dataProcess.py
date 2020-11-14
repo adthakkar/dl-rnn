@@ -56,7 +56,7 @@ def parse_jhu_dataset(fname, label):
 def load_jhu_dataset():
     reviews = []
 
-    with open('/home/ec2-user/dl-rnn/dataset/jhu_dataset', 'r') as f:
+    with open('/home/ubuntu/dl-rnn/dataset/jhu_dataset', 'r') as f:
         filenames = f.read().splitlines()
         
         for fname in filenames:
@@ -73,7 +73,7 @@ def load_jhu_dataset():
 def load_csv_dataset():
     reviews = []
 
-    with open('/home/ec2-user/dl-rnn/dataset/food_reviews', 'r') as f:
+    with open('/home/ubuntu/dl-rnn/dataset/food_reviews', 'r') as f:
         filenames = f.read().splitlines()
 
         for fname in filenames:
