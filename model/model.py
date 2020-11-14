@@ -92,7 +92,7 @@ def test(model, device, test_loader, criterion):
         test_loss.append(loss.item())
 
     accuracy = test_acc/len(test_loader.dataset)
-    print('Test Set mean Loss {}. Test Set Accuracy: {}'.format(np.mean(test_loss), accuracy))
+    print('Test Set mean Loss {}. Test Acc: {} Test Set Accuracy: {}'.format(np.mean(test_loss), test_acc, accuracy))
 
 
 
@@ -151,7 +151,7 @@ def train(model, device, data_loader, validate_loader, optimizer, criterion, val
             model.train()
 
             accuracy = validate_acc/len(validate_loader.dataset)
-            print('Iteration: {}. Loss: {}. Validate Set mean Loss {}. Validate Set Accuracy: {}'.format(counter, loss.item(), np.mean(validate_loss), accuracy))
+            print('Iteration: {}. Loss: {}. Validate Set mean Loss {}. validate acc: {} , Validate Set Accuracy: {}'.format(counter, loss.item(), np.mean(validate_loss), validate_acc, accuracy))
 
 
     return model
