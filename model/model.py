@@ -257,8 +257,7 @@ def main():
     #     print("***********one round finished, learning rate =  ***********", learning_rate)
     #     runme(learning_rate=learning_rate)
 
-
-
+    n_layers = [1,2,3,4,5]
     for n_layer in n_layers:
         print("***********one round finished, n_layers =  ***********", n_layer)
         runme(n_layer=n_layer)
