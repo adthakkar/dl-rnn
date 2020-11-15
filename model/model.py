@@ -260,7 +260,7 @@ def main():
     n_layers = [1,2,3,4,5]
     for n_layer in n_layers:
         print("***********one round finished, n_layers =  ***********", n_layer)
-        runme(n_layer=n_layer)
+        runme(n_layers=n_layer)
 
 
 if __name__ == '__main__':
