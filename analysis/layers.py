@@ -94,7 +94,7 @@ plt.xlabel('Iterations (100/each)')
 # Set the y axis label of the current axis.
 plt.ylabel('Loss')
 # Set a title of the current axes.
-plt.title('Loss Converge Trends with various Learning Rate')
+plt.title('Loss Converge Trends with various Hidden Layers')
 # show a legend on the plot
 plt.legend(loc='lower left')
 

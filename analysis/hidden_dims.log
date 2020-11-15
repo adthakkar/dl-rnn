@@ -1,0 +1,241 @@
+***********one round finished, hidden_dim =  *********** 25
+Data Split Ratio: 0.92. Batch Size: 512. Number LSTM Units 25. Number LSTM Layers: 2. Dropout: 0.1. Direction: 1. Number Epoch: 1.
+Learning Rate: 0.001.
+ReviewSentiment(
+  (embedding): Embedding(46815, 300)
+  (lstm): LSTM(300, 25, num_layers=2, batch_first=True, dropout=0.1)
+  (fc): Linear(in_features=25, out_features=5, bias=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+  (softMax): Softmax(dim=1)
+)
+Number of parameters in the model = 14082530.
+Training the Model
+Epoch 0.
+Iteration: 100. Loss: 0.08238194137811661. Validate Set mean Loss 0.06913218525764735. validate acc: 22797 , validate dataset len: 23058, Validate Set Accuracy: 0.9886807203292847
+Iteration: 200. Loss: 0.02488415502011776. Validate Set mean Loss 0.03611437547142091. validate acc: 22812 , validate dataset len: 23058, Validate Set Accuracy: 0.9893312454223633
+Iteration: 300. Loss: 0.01539222989231348. Validate Set mean Loss 0.028447786730754633. validate acc: 22841 , validate dataset len: 23058, Validate Set Accuracy: 0.9905889630317688
+Iteration: 400. Loss: 0.02420543134212494. Validate Set mean Loss 0.02510185044704248. validate acc: 22846 , validate dataset len: 23058, Validate Set Accuracy: 0.9908058047294617
+Iteration: 500. Loss: 0.028872769325971603. Validate Set mean Loss 0.025038716464262943. validate acc: 22847 , validate dataset len: 23058, Validate Set Accuracy: 0.9908491373062134
+Iteration: 600. Loss: 0.0184444859623909. Validate Set mean Loss 0.021723121667847685. validate acc: 22850 , validate dataset len: 23058, Validate Set Accuracy: 0.9909792542457581
+Iteration: 700. Loss: 0.03890238702297211. Validate Set mean Loss 0.020647445496212204. validate acc: 22849 , validate dataset len: 23058, Validate Set Accuracy: 0.9909359216690063
+Iteration: 800. Loss: 0.022420860826969147. Validate Set mean Loss 0.02147020917871724. validate acc: 22851 , validate dataset len: 23058, Validate Set Accuracy: 0.9910226464271545
+Iteration: 900. Loss: 0.03171776607632637. Validate Set mean Loss 0.01957109246564948. validate acc: 22851 , validate dataset len: 23058, Validate Set Accuracy: 0.9910226464271545
+Iteration: 1000. Loss: 0.018731307238340378. Validate Set mean Loss 0.019351914875543393. validate acc: 22852 , validate dataset len: 23058, Validate Set Accuracy: 0.9910659790039062
+Testing the Model
+Test Set mean Loss 0.01794915140287586. Test Acc: 22876, Test Dataset Len: 23059, Test Set Accuracy: 0.9920638203620911
+
+
+***********one round finished, hidden_dim =  *********** 50
+Data Split Ratio: 0.92. Batch Size: 512. Number LSTM Units 50. Number LSTM Layers: 2. Dropout: 0.1. Direction: 1. Number Epoch: 1.
+Learning Rate: 0.001.
+ReviewSentiment(
+  (embedding): Embedding(46815, 300)
+  (lstm): LSTM(300, 50, num_layers=2, batch_first=True, dropout=0.1)
+  (fc): Linear(in_features=50, out_features=5, bias=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+  (softMax): Softmax(dim=1)
+)
+Number of parameters in the model = 14135555.
+Training the Model
+Epoch 0.
+Iteration: 100. Loss: 0.02157961204648018. Validate Set mean Loss 0.03870676044860612. validate acc: 22833 , validate dataset len: 23058, Validate Set Accuracy: 0.9902420043945312
+Iteration: 200. Loss: 0.0150489816442132. Validate Set mean Loss 0.036036033699612904. validate acc: 22860 , validate dataset len: 23058, Validate Set Accuracy: 0.9914129376411438
+Iteration: 300. Loss: 0.023594234138727188. Validate Set mean Loss 0.030010291704219646. validate acc: 22868 , validate dataset len: 23058, Validate Set Accuracy: 0.9917598962783813
+Iteration: 400. Loss: 0.02488528937101364. Validate Set mean Loss 0.020167175234983795. validate acc: 22872 , validate dataset len: 23058, Validate Set Accuracy: 0.9919334053993225
+Iteration: 500. Loss: 0.017184169963002205. Validate Set mean Loss 0.018832981614294746. validate acc: 22872 , validate dataset len: 23058, Validate Set Accuracy: 0.9919334053993225
+Iteration: 600. Loss: 0.012186745181679726. Validate Set mean Loss 0.018058931252554707. validate acc: 22871 , validate dataset len: 23058, Validate Set Accuracy: 0.991890013217926
+Iteration: 700. Loss: 0.022797882556915283. Validate Set mean Loss 0.017416290253016126. validate acc: 22872 , validate dataset len: 23058, Validate Set Accuracy: 0.9919334053993225
+Iteration: 800. Loss: 0.009379593655467033. Validate Set mean Loss 0.017333861303125996. validate acc: 22869 , validate dataset len: 23058, Validate Set Accuracy: 0.9918032884597778
+Iteration: 900. Loss: 0.01859939657151699. Validate Set mean Loss 0.01671520475824566. validate acc: 22880 , validate dataset len: 23058, Validate Set Accuracy: 0.9922803640365601
+Iteration: 1000. Loss: 0.019352663308382034. Validate Set mean Loss 0.01658149889882897. validate acc: 22877 , validate dataset len: 23058, Validate Set Accuracy: 0.9921502470970154
+Testing the Model
+Test Set mean Loss 0.020504535003767713. Test Acc: 22853, Test Dataset Len: 23059, Test Set Accuracy: 0.9910663962364197
+
+
+***********one round finished, hidden_dim =  *********** 75
+Data Split Ratio: 0.92. Batch Size: 512. Number LSTM Units 75. Number LSTM Layers: 2. Dropout: 0.1. Direction: 1. Number Epoch: 1.
+Learning Rate: 0.001.
+ReviewSentiment(
+  (embedding): Embedding(46815, 300)
+  (lstm): LSTM(300, 75, num_layers=2, batch_first=True, dropout=0.1)
+  (fc): Linear(in_features=75, out_features=5, bias=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+  (softMax): Softmax(dim=1)
+)
+Number of parameters in the model = 14203580.
+Training the Model
+Epoch 0.
+Iteration: 100. Loss: 0.07123405486345291. Validate Set mean Loss 0.037217861912010805. validate acc: 22870 , validate dataset len: 23058, Validate Set Accuracy: 0.9918466210365295
+Iteration: 200. Loss: 0.03641324117779732. Validate Set mean Loss 0.03541775236068213. validate acc: 22871 , validate dataset len: 23058, Validate Set Accuracy: 0.991890013217926
+Iteration: 300. Loss: 0.008072929456830025. Validate Set mean Loss 0.034554937252086464. validate acc: 22872 , validate dataset len: 23058, Validate Set Accuracy: 0.9919334053993225
+Iteration: 400. Loss: 0.033656977117061615. Validate Set mean Loss 0.024869301110890734. validate acc: 22871 , validate dataset len: 23058, Validate Set Accuracy: 0.991890013217926
+Iteration: 500. Loss: 0.024355463683605194. Validate Set mean Loss 0.02052363832278744. validate acc: 22865 , validate dataset len: 23058, Validate Set Accuracy: 0.9916297793388367
+Iteration: 600. Loss: 0.012821135111153126. Validate Set mean Loss 0.017960080222110264. validate acc: 22861 , validate dataset len: 23058, Validate Set Accuracy: 0.9914563298225403
+Iteration: 700. Loss: 0.01000421866774559. Validate Set mean Loss 0.020466010501284316. validate acc: 22857 , validate dataset len: 23058, Validate Set Accuracy: 0.9912828803062439
+Iteration: 800. Loss: 0.023115895688533783. Validate Set mean Loss 0.017362280398905885. validate acc: 22872 , validate dataset len: 23058, Validate Set Accuracy: 0.9919334053993225
+Iteration: 900. Loss: 0.017847241833806038. Validate Set mean Loss 0.01723717514023124. validate acc: 22875 , validate dataset len: 23058, Validate Set Accuracy: 0.9920634627342224
+Iteration: 1000. Loss: 0.006785702891647816. Validate Set mean Loss 0.017225144777393838. validate acc: 22868 , validate dataset len: 23058, Validate Set Accuracy: 0.9917598962783813
+Testing the Model
+Test Set mean Loss 0.017746560126872046. Test Acc: 22861, Test Dataset Len: 23059, Test Set Accuracy: 0.9914133548736572
+
+
+***********one round finished, hidden_dim =  *********** 100
+Data Split Ratio: 0.92. Batch Size: 512. Number LSTM Units 100. Number LSTM Layers: 2. Dropout: 0.1. Direction: 1. Number Epoch: 1.
+Learning Rate: 0.001.
+ReviewSentiment(
+  (embedding): Embedding(46815, 300)
+  (lstm): LSTM(300, 100, num_layers=2, batch_first=True, dropout=0.1)
+  (fc): Linear(in_features=100, out_features=5, bias=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+  (softMax): Softmax(dim=1)
+)
+Number of parameters in the model = 14286605.
+Training the Model
+Epoch 0.
+Iteration: 100. Loss: 0.033075280487537384. Validate Set mean Loss 0.04319255057033961. validate acc: 22852 , validate dataset len: 23058, Validate Set Accuracy: 0.9910659790039062
+Iteration: 200. Loss: 0.02818159945309162. Validate Set mean Loss 0.025077011669054627. validate acc: 22857 , validate dataset len: 23058, Validate Set Accuracy: 0.9912828803062439
+Iteration: 300. Loss: 0.021990593522787094. Validate Set mean Loss 0.019933878864242655. validate acc: 22852 , validate dataset len: 23058, Validate Set Accuracy: 0.9910659790039062
+Iteration: 400. Loss: 0.025700964033603668. Validate Set mean Loss 0.021230526961912605. validate acc: 22853 , validate dataset len: 23058, Validate Set Accuracy: 0.9911093711853027
+Iteration: 500. Loss: 0.022377479821443558. Validate Set mean Loss 0.019405135102873748. validate acc: 22843 , validate dataset len: 23058, Validate Set Accuracy: 0.990675687789917
+Iteration: 600. Loss: 0.032426849007606506. Validate Set mean Loss 0.018247735843507817. validate acc: 22860 , validate dataset len: 23058, Validate Set Accuracy: 0.9914129376411438
+Iteration: 700. Loss: 0.007068862207233906. Validate Set mean Loss 0.017754121861324402. validate acc: 22868 , validate dataset len: 23058, Validate Set Accuracy: 0.9917598962783813
+Iteration: 800. Loss: 0.016603289172053337. Validate Set mean Loss 0.017487595744213373. validate acc: 22870 , validate dataset len: 23058, Validate Set Accuracy: 0.9918466210365295
+Iteration: 900. Loss: 0.01691535860300064. Validate Set mean Loss 0.017499620426742298. validate acc: 22866 , validate dataset len: 23058, Validate Set Accuracy: 0.9916731715202332
+Iteration: 1000. Loss: 0.028784263879060745. Validate Set mean Loss 0.017423819418700474. validate acc: 22863 , validate dataset len: 23058, Validate Set Accuracy: 0.9915430545806885
+Testing the Model
+Test Set mean Loss 0.018843342342892276. Test Acc: 22846, Test Dataset Len: 23059, Test Set Accuracy: 0.9907628297805786
+
+
+***********one round finished, hidden_dim =  *********** 125
+Data Split Ratio: 0.92. Batch Size: 512. Number LSTM Units 125. Number LSTM Layers: 2. Dropout: 0.1. Direction: 1. Number Epoch: 1.
+Learning Rate: 0.001.
+ReviewSentiment(
+  (embedding): Embedding(46815, 300)
+  (lstm): LSTM(300, 125, num_layers=2, batch_first=True, dropout=0.1)
+  (fc): Linear(in_features=125, out_features=5, bias=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+  (softMax): Softmax(dim=1)
+)
+Number of parameters in the model = 14384630.
+Training the Model
+Epoch 0.
+Iteration: 100. Loss: 0.46314769983291626. Validate Set mean Loss 0.4477184887813485. validate acc: 19119 , validate dataset len: 23058, Validate Set Accuracy: 0.8291699290275574
+Iteration: 200. Loss: 0.023994185030460358. Validate Set mean Loss 0.046189404781097954. validate acc: 22854 , validate dataset len: 23058, Validate Set Accuracy: 0.9911527633666992
+Iteration: 300. Loss: 0.02863159403204918. Validate Set mean Loss 0.038516130617252835. validate acc: 22852 , validate dataset len: 23058, Validate Set Accuracy: 0.9910659790039062
+Iteration: 400. Loss: 0.055263813585042953. Validate Set mean Loss 0.04040591711299899. validate acc: 22851 , validate dataset len: 23058, Validate Set Accuracy: 0.9910226464271545
+Iteration: 500. Loss: 0.009781957603991032. Validate Set mean Loss 0.022479898584804134. validate acc: 22848 , validate dataset len: 23058, Validate Set Accuracy: 0.9908925294876099
+Iteration: 600. Loss: 0.02166779711842537. Validate Set mean Loss 0.02118180123279276. validate acc: 22850 , validate dataset len: 23058, Validate Set Accuracy: 0.9909792542457581
+Iteration: 700. Loss: 0.02974792756140232. Validate Set mean Loss 0.030022162200032693. validate acc: 22838 , validate dataset len: 23058, Validate Set Accuracy: 0.9904588460922241
+Iteration: 800. Loss: 0.0074672456830739975. Validate Set mean Loss 0.019778924700601594. validate acc: 22849 , validate dataset len: 23058, Validate Set Accuracy: 0.9909359216690063
+Iteration: 900. Loss: 0.016840778291225433. Validate Set mean Loss 0.018205731666176176. validate acc: 22858 , validate dataset len: 23058, Validate Set Accuracy: 0.9913262128829956
+Iteration: 1000. Loss: 0.01862499862909317. Validate Set mean Loss 0.01796546117016671. validate acc: 22856 , validate dataset len: 23058, Validate Set Accuracy: 0.9912394881248474
+Testing the Model
+Test Set mean Loss 0.01798359068735685. Test Acc: 22859, Test Dataset Len: 23059, Test Set Accuracy: 0.9913265705108643
+
+
+***********one round finished, hidden_dim =  *********** 150
+Data Split Ratio: 0.92. Batch Size: 512. Number LSTM Units 150. Number LSTM Layers: 2. Dropout: 0.1. Direction: 1. Number Epoch: 1.
+Learning Rate: 0.001.
+ReviewSentiment(
+  (embedding): Embedding(46815, 300)
+  (lstm): LSTM(300, 150, num_layers=2, batch_first=True, dropout=0.1)
+  (fc): Linear(in_features=150, out_features=5, bias=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+  (softMax): Softmax(dim=1)
+)
+Number of parameters in the model = 14497655.
+Training the Model
+Epoch 0.
+Iteration: 100. Loss: 0.48107361793518066. Validate Set mean Loss 0.45253440737724304. validate acc: 19094 , validate dataset len: 23058, Validate Set Accuracy: 0.828085720539093
+Iteration: 200. Loss: 0.4291607439517975. Validate Set mean Loss 0.4487873568483021. validate acc: 19100 , validate dataset len: 23058, Validate Set Accuracy: 0.8283458948135376
+Iteration: 300. Loss: 0.41688135266304016. Validate Set mean Loss 0.4469360897074575. validate acc: 19099 , validate dataset len: 23058, Validate Set Accuracy: 0.8283025622367859
+Iteration: 400. Loss: 0.47045543789863586. Validate Set mean Loss 0.4489009160062541. validate acc: 19098 , validate dataset len: 23058, Validate Set Accuracy: 0.8282591700553894
+Iteration: 500. Loss: 0.43446433544158936. Validate Set mean Loss 0.43932247226652893. validate acc: 19097 , validate dataset len: 23058, Validate Set Accuracy: 0.8282157778739929
+Iteration: 600. Loss: 0.020832613110542297. Validate Set mean Loss 0.019894714770919603. validate acc: 22867 , validate dataset len: 23058, Validate Set Accuracy: 0.9917165637016296
+Iteration: 700. Loss: 0.009883490391075611. Validate Set mean Loss 0.017293334074328533. validate acc: 22854 , validate dataset len: 23058, Validate Set Accuracy: 0.9911527633666992
+Iteration: 800. Loss: 0.020941484719514847. Validate Set mean Loss 0.019132329895080107. validate acc: 22851 , validate dataset len: 23058, Validate Set Accuracy: 0.9910226464271545
+Iteration: 900. Loss: 0.030392155051231384. Validate Set mean Loss 0.01712389272395977. validate acc: 22864 , validate dataset len: 23058, Validate Set Accuracy: 0.991586446762085
+Iteration: 1000. Loss: 0.01695660501718521. Validate Set mean Loss 0.01826662336774778. validate acc: 22869 , validate dataset len: 23058, Validate Set Accuracy: 0.9918032884597778
+Testing the Model
+Test Set mean Loss 0.019500583411528445. Test Acc: 22840, Test Dataset Len: 23059, Test Set Accuracy: 0.9905025959014893
+
+
+***********one round finished, hidden_dim =  *********** 175
+Data Split Ratio: 0.92. Batch Size: 512. Number LSTM Units 175. Number LSTM Layers: 2. Dropout: 0.1. Direction: 1. Number Epoch: 1.
+Learning Rate: 0.001.
+ReviewSentiment(
+  (embedding): Embedding(46815, 300)
+  (lstm): LSTM(300, 175, num_layers=2, batch_first=True, dropout=0.1)
+  (fc): Linear(in_features=175, out_features=5, bias=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+  (softMax): Softmax(dim=1)
+)
+Number of parameters in the model = 14625680.
+Training the Model
+Epoch 0.
+Iteration: 100. Loss: 0.4568195044994354. Validate Set mean Loss 0.4593482088783513. validate acc: 19100 , validate dataset len: 23058, Validate Set Accuracy: 0.8283458948135376
+Iteration: 200. Loss: 0.42407912015914917. Validate Set mean Loss 0.45347145653289295. validate acc: 19104 , validate dataset len: 23058, Validate Set Accuracy: 0.8285194039344788
+Iteration: 300. Loss: 0.4566568434238434. Validate Set mean Loss 0.4599341814932616. validate acc: 19105 , validate dataset len: 23058, Validate Set Accuracy: 0.8285627365112305
+Iteration: 400. Loss: 0.4516645073890686. Validate Set mean Loss 0.46055453950944153. validate acc: 19106 , validate dataset len: 23058, Validate Set Accuracy: 0.828606128692627
+Iteration: 500. Loss: 0.5147905349731445. Validate Set mean Loss 0.454921367375747. validate acc: 19102 , validate dataset len: 23058, Validate Set Accuracy: 0.8284326195716858
+Iteration: 600. Loss: 0.39452093839645386. Validate Set mean Loss 0.4085004860940187. validate acc: 19104 , validate dataset len: 23058, Validate Set Accuracy: 0.8285194039344788
+Iteration: 700. Loss: 0.07507269084453583. Validate Set mean Loss 0.05308231867282935. validate acc: 22843 , validate dataset len: 23058, Validate Set Accuracy: 0.990675687789917
+Iteration: 800. Loss: 0.037772152572870255. Validate Set mean Loss 0.05783852720228226. validate acc: 22813 , validate dataset len: 23058, Validate Set Accuracy: 0.9893746376037598
+Iteration: 900. Loss: 0.036272551864385605. Validate Set mean Loss 0.037847701389261565. validate acc: 22842 , validate dataset len: 23058, Validate Set Accuracy: 0.9906322956085205
+Iteration: 1000. Loss: 0.021431853994727135. Validate Set mean Loss 0.019399617143157546. validate acc: 22854 , validate dataset len: 23058, Validate Set Accuracy: 0.9911527633666992
+Testing the Model
+Test Set mean Loss 0.03186805971452723. Test Acc: 22859, Test Dataset Len: 23059, Test Set Accuracy: 0.9913265705108643
+
+
+***********one round finished, hidden_dim =  *********** 200
+Data Split Ratio: 0.92. Batch Size: 512. Number LSTM Units 200. Number LSTM Layers: 2. Dropout: 0.1. Direction: 1. Number Epoch: 1.
+Learning Rate: 0.001.
+ReviewSentiment(
+  (embedding): Embedding(46815, 300)
+  (lstm): LSTM(300, 200, num_layers=2, batch_first=True, dropout=0.1)
+  (fc): Linear(in_features=200, out_features=5, bias=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+  (softMax): Softmax(dim=1)
+)
+Number of parameters in the model = 14768705.
+Training the Model
+Epoch 0.
+Iteration: 100. Loss: 0.65311199426651. Validate Set mean Loss 0.6718496369278949. validate acc: 15278 , validate dataset len: 23058, Validate Set Accuracy: 0.662589967250824
+Iteration: 200. Loss: 0.5975883603096008. Validate Set mean Loss 0.45607646457526996. validate acc: 15283 , validate dataset len: 23058, Validate Set Accuracy: 0.6628068089485168
+Iteration: 300. Loss: 0.011939061805605888. Validate Set mean Loss 0.027269820804181305. validate acc: 22871 , validate dataset len: 23058, Validate Set Accuracy: 0.991890013217926
+Iteration: 400. Loss: 0.04157782346010208. Validate Set mean Loss 0.017787337619507605. validate acc: 22870 , validate dataset len: 23058, Validate Set Accuracy: 0.9918466210365295
+Iteration: 500. Loss: 0.018747538328170776. Validate Set mean Loss 0.017078710642121936. validate acc: 22874 , validate dataset len: 23058, Validate Set Accuracy: 0.9920201301574707
+Iteration: 600. Loss: 0.020280664786696434. Validate Set mean Loss 0.020867311259043283. validate acc: 22868 , validate dataset len: 23058, Validate Set Accuracy: 0.9917598962783813
+Iteration: 700. Loss: 0.02498980611562729. Validate Set mean Loss 0.021739884632710448. validate acc: 22864 , validate dataset len: 23058, Validate Set Accuracy: 0.991586446762085
+Iteration: 800. Loss: 0.019147802144289017. Validate Set mean Loss 0.018841109314488003. validate acc: 22870 , validate dataset len: 23058, Validate Set Accuracy: 0.9918466210365295
+Iteration: 900. Loss: 0.021415583789348602. Validate Set mean Loss 0.016991679874279172. validate acc: 22875 , validate dataset len: 23058, Validate Set Accuracy: 0.9920634627342224
+Iteration: 1000. Loss: 0.012572333216667175. Validate Set mean Loss 0.016846216214142496. validate acc: 22864 , validate dataset len: 23058, Validate Set Accuracy: 0.991586446762085
+Testing the Model
+Test Set mean Loss 0.01758961872047107. Test Acc: 22856, Test Dataset Len: 23059, Test Set Accuracy: 0.9911965131759644
+
+
+***********one round finished, hidden_dim =  *********** 225
+Data Split Ratio: 0.92. Batch Size: 512. Number LSTM Units 225. Number LSTM Layers: 2. Dropout: 0.1. Direction: 1. Number Epoch: 1.
+Learning Rate: 0.001.
+ReviewSentiment(
+  (embedding): Embedding(46815, 300)
+  (lstm): LSTM(300, 225, num_layers=2, batch_first=True, dropout=0.1)
+  (fc): Linear(in_features=225, out_features=5, bias=True)
+  (dropout): Dropout(p=0.1, inplace=False)
+  (softMax): Softmax(dim=1)
+)
+Number of parameters in the model = 14926730.
+Training the Model
+Epoch 0.
+Iteration: 100. Loss: 0.6609698534011841. Validate Set mean Loss 0.671608207018479. validate acc: 15388 , validate dataset len: 23058, Validate Set Accuracy: 0.6673605442047119
+Iteration: 200. Loss: 0.6632310152053833. Validate Set mean Loss 0.6704471227915391. validate acc: 15388 , validate dataset len: 23058, Validate Set Accuracy: 0.6673605442047119
+Iteration: 300. Loss: 0.7037505507469177. Validate Set mean Loss 0.6715064670728601. validate acc: 15392 , validate dataset len: 23058, Validate Set Accuracy: 0.6675340533256531
+Iteration: 400. Loss: 0.666565477848053. Validate Set mean Loss 0.6719816236392312. validate acc: 15393 , validate dataset len: 23058, Validate Set Accuracy: 0.6675773859024048
+Iteration: 500. Loss: 0.7192140221595764. Validate Set mean Loss 0.6735217402810636. validate acc: 15389 , validate dataset len: 23058, Validate Set Accuracy: 0.6674039363861084
+Iteration: 600. Loss: 0.6741926670074463. Validate Set mean Loss 0.6702649904334027. validate acc: 15393 , validate dataset len: 23058, Validate Set Accuracy: 0.6675773859024048
+Iteration: 700. Loss: 0.6651760339736938. Validate Set mean Loss 0.6753707916840263. validate acc: 15393 , validate dataset len: 23058, Validate Set Accuracy: 0.6675773859024048
+Iteration: 800. Loss: 0.6684295535087585. Validate Set mean Loss 0.6684452049110247. validate acc: 15393 , validate dataset len: 23058, Validate Set Accuracy: 0.6675773859024048
+Iteration: 900. Loss: 0.7309958934783936. Validate Set mean Loss 0.6661903190871944. validate acc: 15391 , validate dataset len: 23058, Validate Set Accuracy: 0.6674906611442566
+Iteration: 1000. Loss: 0.07718486338853836. Validate Set mean Loss 0.0744009398571823. validate acc: 22838 , validate dataset len: 23058, Validate Set Accuracy: 0.9904588460922241
+Testing the Model
+Test Set mean Loss 0.056861206960014024. Test Acc: 22828, Test Dataset Len: 23059, Test Set Accuracy: 0.9899822473526001

@@ -139,7 +139,7 @@ plt.xlabel('Iterations (100/each)')
 # Set the y axis label of the current axis.
 plt.ylabel('Validate Accuracy')
 # Set a title of the current axes.
-plt.title('Validate Accuracy Converge Trends with various Learning Rate')
+plt.title('Validate Accuracy Trends with various Learning Rate')
 # show a legend on the plot
 plt.legend(loc='lower left')
 
