@@ -251,17 +251,21 @@ def main():
     #vocabulary, data_reviews, data_label = load_data(hidden_dim, pad=True, plot=False)
 
     # iterate on learning rate
-    learning_rates = [0.001, 0.002, 0.004, 0.008, 0.016, 0.032, 0.064, 0.1]
+    # learning_rates = [0.001, 0.002, 0.004, 0.008, 0.016, 0.032, 0.064, 0.1]
 
     # for learning_rate in learning_rates:
     #     print("***********one round finished, learning rate =  ***********", learning_rate)
     #     runme(learning_rate=learning_rate)
 
-    n_layers = [1,2,3,4,5]
-    for n_layer in n_layers:
-        print("***********one round finished, n_layers =  ***********", n_layer)
-        runme(n_layers=n_layer)
+    # n_layers = [1,2,3,4,5]
+    # for n_layer in n_layers:
+    #     print("***********one round finished, n_layers =  ***********", n_layer)
+    #     runme(n_layers=n_layer)
 
+    hidden_dims = [25,50,75, 100,125, 150, 175, 200, 225]
+    for hidden_dim in hidden_dims:
+        print("***********one round finished, hidden_dim =  ***********", hidden_dim)
+        runme(hidden_dim=hidden_dim)
 
 if __name__ == '__main__':
     main()
