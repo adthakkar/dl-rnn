@@ -217,6 +217,8 @@ def runme(data_split_ratio=0.92, batch_size=512, output_dim=5, embedding_dim=300
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
+    print(model)
+
     print("Number of parameters in the model = %d." %(sum(p.numel() for p in model.parameters() if p.requires_grad)))
 
     optimizer = optim.Adam(model.parameters(), learning_rate)
@@ -245,13 +247,21 @@ def main():
     # dropout = 0.1
     # validate_counter = 100
 
+    # load data
+    vocabulary, data_reviews, data_label = load_data(hidden_dim, pad=True, plot=False)
 
     # iterate on learning rate
     learning_rates = [0.001, 0.002, 0.004, 0.008, 0.016, 0.032, 0.064, 0.1]
 
-    for learning_rate in learning_rates:
-        runme(learning_rate=learning_rate)
+    # for learning_rate in learning_rates:
+    #     print("***********one round finished, learning rate =  ***********", learning_rate)
+    #     runme(learning_rate=learning_rate)
 
+
+
+    for n_layer in n_layers:
+        print("***********one round finished, n_layers =  ***********", n_layer)
+        runme(n_layer=n_layer)
 
 
 if __name__ == '__main__':
