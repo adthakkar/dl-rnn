@@ -157,7 +157,7 @@ def train(model, device, data_loader, validate_loader, optimizer, criterion, val
     return model
 
 
-def runme(data_split_ratio=0.8, batch_size=512, output_dim=5, embedding_dim=300, hidden_dim=176, n_layers=2, n_direction=1, learning_rate=0.001, epoch=1, dropout=0.1, validate_counter=100):
+def runme(data_split_ratio=0.92, batch_size=512, output_dim=5, embedding_dim=300, hidden_dim=176, n_layers=2, n_direction=1, learning_rate=0.001, epoch=1, dropout=0.1, validate_counter=100):
     # data_split_ratio = 0.92
     # batch_size = 512
     #
@@ -245,7 +245,12 @@ def main():
     # dropout = 0.1
     # validate_counter = 100
 
-    runme(epoch=2)
+
+    # iterate on learning rate
+    learning_rates = [0.001, 0.002, 0.004, 0.008, 0.016, 0.032, 0.064, 0.1]
+
+    for learning_rate in learning_rates:
+        runme(learning_rate=learning_rate)
 
 
 
