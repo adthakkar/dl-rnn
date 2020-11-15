@@ -248,7 +248,7 @@ def main():
     # validate_counter = 100
 
     # load data
-    vocabulary, data_reviews, data_label = load_data(hidden_dim, pad=True, plot=False)
+    #vocabulary, data_reviews, data_label = load_data(hidden_dim, pad=True, plot=False)
 
     # iterate on learning rate
     learning_rates = [0.001, 0.002, 0.004, 0.008, 0.016, 0.032, 0.064, 0.1]
