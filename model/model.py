@@ -157,18 +157,18 @@ def train(model, device, data_loader, validate_loader, optimizer, criterion, val
     return model
 
 
-def main():
-    data_split_ratio = 0.92
-    batch_size = 512
-
-    output_dim = 5
-    embedding_dim = 300
-    hidden_dim = 176
-    n_layers = 2
-    n_direction = 1
-    learning_rate = 0.001
-    epoch = 1
-    dropout = 0.1
+def runme(data_split_ratio=0.8, batch_size=512, output_dim=5, embedding_dim=300, hidden_dim=176, n_layers=2, n_direction=1, learning_rate=0.001, epoch=1, dropout=0.1, validate_counter=100):
+    # data_split_ratio = 0.92
+    # batch_size = 512
+    #
+    # output_dim = 5
+    # embedding_dim = 300
+    # hidden_dim = 176
+    # n_layers = 2
+    # n_direction = 1
+    # learning_rate = 0.001
+    # epoch = 1
+    # dropout = 0.1
 
     vocabulary, data_reviews, data_label = load_data(hidden_dim, pad=True, plot=False) 
 
@@ -226,10 +226,27 @@ def main():
     print("Training the Model")
     for ep in range(epoch):
         print("Epoch {}.".format(ep))
-        train(model, device, train_loader, validate_loader, optimizer, criterion, validate_counter=100)
+        train(model, device, train_loader, validate_loader, optimizer, criterion, validate_counter)
 
     print("Testing the Model")
     test(model, device, dev_test_loader, criterion)
+
+def main():
+    # data_split_ratio = 0.92
+    # batch_size = 512
+    #
+    # output_dim = 5
+    # embedding_dim = 300
+    # hidden_dim = 176
+    # n_layers = 2
+    # n_direction = 1
+    # learning_rate = 0.001
+    # epoch = 1
+    # dropout = 0.1
+    # validate_counter = 100
+
+    runme(epoch=2)
+
 
 
 if __name__ == '__main__':
