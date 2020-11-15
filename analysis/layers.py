@@ -96,7 +96,7 @@ plt.ylabel('Loss')
 # Set a title of the current axes.
 plt.title('Loss Converge Trends with various Learning Rate')
 # show a legend on the plot
-plt.legend()
+plt.legend(loc='lower left')
 
 
 plt.savefig("layer.png")
