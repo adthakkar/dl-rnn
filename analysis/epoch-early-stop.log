@@ -1,0 +1,33 @@
+CUDA is AVAILABLE!!
+Data Split Ratio: 0.92. Batch Size: 512. Number LSTM Units 176. Number LSTM Layers: 2. Dropout: 0.1. Direction: 1. Number Epoch: 2.
+Learning Rate: 0.001.
+Creating LSTM Model
+Number of parameters in the model = 14631113.
+Training the Model
+Commencing Epoch 0.
+Iteration: 100. Loss: 0.48211321234703064. Validate Set mean Loss 0.4550842876019685. Validate Set Accuracy: 0.8279122114181519
+Iteration: 200. Loss: 0.43390369415283203. Validate Set mean Loss 0.45857471422008844. Validate Set Accuracy: 0.8280423283576965
+Iteration: 300. Loss: 0.45974549651145935. Validate Set mean Loss 0.4571215413186861. Validate Set Accuracy: 0.8282157778739929
+Iteration: 400. Loss: 0.4574151933193207. Validate Set mean Loss 0.4536555357601332. Validate Set Accuracy: 0.8284760117530823
+Iteration: 500. Loss: 0.4703247547149658. Validate Set mean Loss 0.4475748781924662. Validate Set Accuracy: 0.8284326195716858
+Iteration: 600. Loss: 0.39904361963272095. Validate Set mean Loss 0.4532600291397261. Validate Set Accuracy: 0.8284326195716858
+Iteration: 700. Loss: 0.4873100519180298. Validate Set mean Loss 0.45077985978644824. Validate Set Accuracy: 0.8283892869949341
+Iteration: 800. Loss: 0.1958690881729126. Validate Set mean Loss 0.11804960538511691. Validate Set Accuracy: 0.9904588460922241
+Iteration: 900. Loss: 0.05901166796684265. Validate Set mean Loss 0.047884772066026926. Validate Set Accuracy: 0.9893312454223633
+Iteration: 1000. Loss: 0.05429263412952423. Validate Set mean Loss 0.049680865207768. Validate Set Accuracy: 0.9891577959060669
+Epoch 0. took 340.75817131996155. seconds to complete
+Commencing Epoch 1.
+Iteration: 100. Loss: 0.03732353076338768. Validate Set mean Loss 0.035673400964183005. Validate Set Accuracy: 0.9890276789665222
+Iteration: 200. Loss: 0.05761750787496567. Validate Set mean Loss 0.02719142522824847. Validate Set Accuracy: 0.9903721213340759
+Iteration: 300. Loss: 0.03591344505548477. Validate Set mean Loss 0.021566161124096456. Validate Set Accuracy: 0.9917598962783813
+Iteration: 400. Loss: 0.022256171330809593. Validate Set mean Loss 0.019788424646400887. Validate Set Accuracy: 0.9917598962783813
+Iteration: 500. Loss: 0.015134639106690884. Validate Set mean Loss 0.01682397354211982. Validate Set Accuracy: 0.9919334053993225
+Iteration: 600. Loss: 0.016366882249712944. Validate Set mean Loss 0.016925253559906116. Validate Set Accuracy: 0.9919767379760742
+Iteration: 700. Loss: 0.020947284996509552. Validate Set mean Loss 0.016397158465026776. Validate Set Accuracy: 0.9917598962783813
+Iteration: 800. Loss: 0.01831391081213951. Validate Set mean Loss 0.016581449372650874. Validate Set Accuracy: 0.9915430545806885
+Iteration: 900. Loss: 0.020556733012199402. Validate Set mean Loss 0.016279721974886186. Validate Set Accuracy: 0.9916731715202332
+Iteration: 1000. Loss: 0.014590829610824585. Validate Set mean Loss 0.016217643824980452. Validate Set Accuracy: 0.9919334053993225
+Epoch 1. took 340.02716159820557. seconds to complete
+Testing the Model
+Test Set mean Loss 0.02129471725176858. Test Set Accuracy: 0.9897220134735107
+
