@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from pprint import pprint
 from string import punctuation
 from collections import Counter
-
+from transformers import BertTokenizer
 
 def parse_csv_dataset(fname):
     reviews = []
@@ -142,9 +142,17 @@ def pad_truncate(encoded_reviews, max_length):
 
     return padded_list
     
+def bert_tokenize(data_text, tokenizer):
+    encoded_reviews = []
+    for rev in data_text:
+        tokens = tokenizer.tokenize(rev) 
+        indexes = tokenizer.convert_tokens_to_ids(tokens)
+        #tokens = tokens[:max_input_length-2]
+        encoded_reviews.append(indexes)
 
+    return encoded_reviews
 
-def load_data(max_len=256, pad=True, plot=False):
+def load_data(max_len=256, model_type = 'lstm', pad=True, plot=False):
     review_list = []
     data_text = []
     data_label = []
@@ -174,9 +182,16 @@ def load_data(max_len=256, pad=True, plot=False):
         data_text.append(rev_punct_removed)
         data_label.append(float(review['rating'])-1)
  
-    vocabulary = tokenize_text(data_text)
-    reviews_encoded = encode_reviews(data_text, vocabulary)
-    print("Vocabulary has %d words" %len(vocabulary))
+    if model_type == 'lstm':
+        print("Tokenizing data for " + model_type)
+        vocabulary = tokenize_text(data_text)
+        reviews_encoded = encode_reviews(data_text, vocabulary)
+        print("Vocabulary has %d words" %len(vocabulary))
+    elif model_type == 'transformers':
+        print("Tokenizing data for " + model_type)
+        tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
+        reviews_encoded = bert_tokenize(data_text, tokenizer)
+        vocabulary = tokenizer.vocab
 
     if plot:
         print("Plotting Tokenized Review Histogram")
@@ -194,7 +209,7 @@ def load_data(max_len=256, pad=True, plot=False):
 
 
 def main():
-    load_data()
+    load_data(max_len=256, model_type = 'lstm', pad=True, plot=False)
 
 if __name__ == '__main__':
     main()

@@ -1,4 +1,6 @@
-#!/usr/bin/python3 
+#!/usr/bin/python3.7 
+import sys
+import time
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -6,8 +8,9 @@ import numpy as np
 
 from dataProcess import load_data
 from torch.utils.data import DataLoader, TensorDataset
+from transformers import BertTokenizer, BertModel
 
-class ReviewSentiment(nn.Module):
+class ReviewSentimentLstm(nn.Module):
     def __init__(self, vocab_size, embedding_dim, hidden_dim, output_dim, n_layers, n_direction, dropout):
         super().__init__()
         self.n_layers = n_layers
@@ -57,6 +60,41 @@ class ReviewSentiment(nn.Module):
         #softmax_out = softmax_out.view(batch_size, -1)
 
         return out
+
+class ReviewSentimentBert(nn.Module):
+    def __init__(self, bert, hidden_dim, output_dim, n_layers, n_direction, dropout):
+        super().__init__()
+
+        self.bert = bert
+        self.hidden_dim  = hidden_dim
+        self.output_dim = output_dim
+        self.n_layers = n_layers
+        self.n_direction = n_direction
+        self.dropout = dropout
+
+        self.bidirectional = self.n_direction == 2 
+        self.embedding_dim = self.bert.config.to_dict()['hidden_size']
+
+        self.rnn = nn.GRU(self.embedding_dim, self.hidden_dim, num_layers = self.n_layers, bidirectional = self.bidirectional, batch_first = True, dropout=self.dropout)
+
+        self.out = nn.Linear(self.hidden_dim * self.n_direction, output_dim)
+        self.dropout = nn.Dropout(dropout)
+
+
+    def forward(self, text):
+        with torch.no_grad():
+            embedded = self.bert(text)[0]
+
+        _, hidden = self.rnn(embedded)
+
+        if self.rnn.bidirectional:
+            hidden = self.dropout(torch.cat((hidden[-2,:,:], hidden[-1,:,:]), dim = 1))
+        else:
+            hidden = self.dropout(hidden[-1,:,:])
+
+        output = self.out(hidden)
+
+        return output
 
 
 def categorical_accuracy(preds, y):
@@ -157,17 +195,17 @@ def train(model, device, data_loader, validate_loader, optimizer, criterion, val
     return model
 
 
-def main():
+def main(model_type='lstm'):
     data_split_ratio = 0.92
-    batch_size = 512
+    batch_size = 256
 
     output_dim = 5
-    embedding_dim = 300
-    hidden_dim = 176
-    n_layers = 2
-    n_direction = 1
+    embedding_dim = 400
+    hidden_dim = 128
+    n_layers = 4
+    n_direction = 2
     learning_rate = 0.001
-    epoch = 1
+    epoch = 2
     dropout = 0.1
 
     vocabulary, data_reviews, data_label = load_data(hidden_dim, pad=True, plot=False) 
@@ -212,27 +250,40 @@ def main():
 
     print('Data Split Ratio: {}. Batch Size: {}. Number LSTM Units {}. Number LSTM Layers: {}. Dropout: {}. Direction: {}. Number Epoch: {}.'.format(data_split_ratio, batch_size, hidden_dim, n_layers, dropout, n_direction, epoch))
     print('Learning Rate: {}.'.format(learning_rate))
-    
-    model = ReviewSentiment(vocab_len, embedding_dim, hidden_dim, output_dim, n_layers, n_direction, dropout)
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model.to(device)
 
-    print("Number of parameters in the model = %d." %(sum(p.numel() for p in model.parameters() if p.requires_grad)))
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+
+    if model_type == 'lstm':
+        print("Creating LSTM Model")
+        model = ReviewSentimentLstm(vocab_len, embedding_dim, hidden_dim, output_dim, n_layers, n_direction, dropout)
+        model.to(device)
+    elif model_type == 'transformer':
+        print("Creating BERT Model")
+        device = torch.device("cpu")
+        bert = BertModel.from_pretrained('bert-base-uncased')
+        model = ReviewSentimentBert(bert, hidden_dim, output_dim, n_layers, n_direction, dropout)
+        model.to(device)
 
     optimizer = optim.Adam(model.parameters(), learning_rate)
     criterion = nn.CrossEntropyLoss()
     criterion.to(device)
-        
+    
+    print("Number of parameters in the model = %d." %(sum(p.numel() for p in model.parameters() if p.requires_grad)))
+ 
     print("Training the Model")
     for ep in range(epoch):
-        print("Epoch {}.".format(ep))
+        t0 = time.time()
+        print("Commencing Epoch {}.".format(ep))
         train(model, device, train_loader, validate_loader, optimizer, criterion, validate_counter=100)
+        t1 = time.time()
+        print("Epoch {}. took {}. seconds to complete".format(ep, (t1-t0)))
+
 
     print("Testing the Model")
     test(model, device, dev_test_loader, criterion)
 
 
 if __name__ == '__main__':
-    main()
+    main('lstm')
 
 
